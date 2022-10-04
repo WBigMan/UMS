@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div style="margin-bottom: 3px">
+        <a type="button" class="btn btn-success btn-sm" href="/depart/add/">
+            添加信息
+        </a>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">导入数据</div>
+        <div class="panel-body">
+            <form method="post" enctype="multipart/form-data" action="/depart/multi/">
+                {% csrf_token %}
+                <div class="row"></div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <input type="file" name="exc">
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <input type="submit" value="提交" class="btn btn-primary">
+                    </div>
+            </form>
+        </div>
+    </div>
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">
+          <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>  部门信息
+      </div>
+
+      <!-- Table -->
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>部门名称</th>
+            <th>部门信息</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for item in de_list %}
+          <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.title }}</td>
+            <td>待填充</td>
+            <td>
+                <a class="btn btn-primary btn-xs" href="/depart/{{ item.id }}/edit/">编辑</a>
+                <a class="btn btn-danger btn-xs" href="/depart/delete/?nid={{ item.id }}">删除</a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+{% endblock %}
